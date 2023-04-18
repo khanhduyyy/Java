@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="../css/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <div class="taskbar" style="margin-bottom: 20px;">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark" sty>
+                    <div class="container-fluid">
+                      <a class="navbar-brand" href="index" style="margin-left: 10px;">Market online</a>
+                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0"><li class="nav-item dropdown">
+                          </li>       
+                          <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../vegetable/index.php">Vegetable</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../cart/index.php">Cart</a>
+                          </li>
+                          <li class="nav-item" style="margin-left: 1000px;">
+                            <a class="nav-link active" aria-current="page" href="#"  th:each="row, state: ${session.CUSTOMERS}" th:text="'Hello:'+${row.Fullname}"> </a>
+                          </li>
+                          <li>
+                              <a class="nav-link active" aria-current="page" href="customer/login">Logout</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                </nav>
+            </div>
+            
+            <form action='search' method="GET">
+                <div class="input-group">
+                    <input type="search" name="name" style="margin-left: 1180px;border-radius: 5px;border-color: #007bff;" placeholder="Search" aria-label="Search" aria-describedby="search-addon" size="30">
+                <button type="submit" class="btn btn-outline-primary">Search</button>
+              </div>  
+            </form>
+            
+            <form action='cate' method="GET">
+            <div  style="float:left;width:16%;font-size:20px;">Category Name:
+                <br>
+                <div th:each ="item, state: ${list}">
+                    <input type='radio' name='id' style='margin-right:10px;margin-top:25px;' th:value="${state.count}" th:utext = "${item.Name}">
+                </div>
+                <button style='padding:12px;margin-top:25px;background-color:#08b0b0;border-radius:10px;color:white;'>Filter</button>
+            </div>
+            </form>
+            
+            <div class='row' style = 'width:85%;float:right;'>
+                <div th:each ="row, state: ${data}" style='margin-top: 50px;max-width:32%;' class='col'>
+                    <div class='card' style='width: 24rem;'>
+                        <img th:src="''+${row.Image}" class='card-img-top' alt='...' style='height:280px;width:100%;'>
+                      <div class='card-body'>
+                            <h5 class='card-title' th:utext="${row.VegetableName}" ></h5>
+                            <p class='card-text' th:utext="${row.Price}+' VND'"></p>
+                            <a th:href="'/shoppingCart/add/'+${row.VegetableID}"><button style='background-color:#e52335;color:white;height:35px;width:18%;border-radius:8px;'>Buy</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+
+    </body>
+</html>

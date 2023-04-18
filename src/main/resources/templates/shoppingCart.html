@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        
+        <a href="../index">
+            <h2 class="top">
+                    Cart
+            </h2>
+        </a>
+        <table class="table">
+            <thead>
+                <tr>
+                  <th scope="col">Number</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Picture</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Price</th>
+                  <th></th>
+                </tr>
+            </thead>
+            <div th:each ="row, state: ${cartItems}">
+                <form th:action="'save?id='+${session.CUSID}" method="post">
+                   <tbody>
+              <tr>
+                  <td th:text='${state.count}'></td>
+                  <td th:utext="${row.VegetableName}"></td>
+                  <td><img style="height:120px;" th:src="'../'+${row.Image}" <="" td="">
+                  </td>
+            
+                  <td>
+                      <input type="hidden" id="productID" name="productID" th:value="${row.VegetableID}">
+                      <input type="number" id="quantity" th:value="${row.Quantity}" name="quantity" min="1"
+                             onblur="this.form.submit()">
+                  </td>
+                  <td th:utext="${row.Price}"></td>
+                  <td>
+                      <a href="">
+                          <span class="btn btn-primary">Update</span>
+                      </a>  
+                    <a th:href="'remove/'+${row.VegetableID}" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-trash"></span> 
+                    </a>
+                  </td>
+              </tr>
+              
+            </tbody>
+                
+            </div> 
+            <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td th:utext="${noOfItems}"></td>
+                  <td th:utext="${total}"></td>
+                  <td></td>
+              </tr>
+        </table>
+        <button type="submit" style="margin-left: 10px;background-color: red;padding: 10px;border-radius: 5px;color: white;">Order</button>
+        </form>
+        <a href="clear">
+		<button style="margin-left: 10px;background-color: yellow;padding: 10px;border-radius: 5px;">Delete All</button>
+	</a>
+        
+        </body>
+</html>
